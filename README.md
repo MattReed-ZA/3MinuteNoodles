@@ -6,8 +6,6 @@ Matthew Reed - u19100133  <br/>
 Dharshan Moodley - u19072164 <br/>
 Mayur Pillay - u19290498 <br/>
 
-<img src="https://drive.google.com/file/d/1XX74y75xqDrUeO2_YlhdZtoHPNip6ypd/view?usp=sharing" />
-
 <!--<table>
   <tr><th>Group Members</th></tr>
   <tr>
