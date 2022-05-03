@@ -9,7 +9,7 @@ Mayur Pillay - u19290498 <br/>
   <tr><th>Group Members</th></tr>
   <tr>
     <td>Matthew Reed - u19100133</td>
-    ![GitHub Stats](https://github-readme-stats.vercel.app/api?username=MattReed-ZA&theme=radical)
+    <td><a>![GitHub Stats](https://github-readme-stats.vercel.app/api?username=MattReed-ZA&theme=radical)</a></td>
   </tr>
   <tr>
     <td>Dharshan Moodley - u19072164</td>
