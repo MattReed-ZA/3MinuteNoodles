@@ -2,10 +2,11 @@
 
 Group Members: <br/> 
 Matthew Reed - u19100133  <br/>
+![GitHub Stats](https://github-readme-stats.vercel.app/api?username=MattReed-ZA&theme=radical) <br />
 Dharshan Moodley - u19072164 <br/>
 Mayur Pillay - u19290498 <br/>
 
-<table>
+<!--<table>
   <tr><th>Group Members</th></tr>
   <tr>
     <td>Matthew Reed - u19100133</td>
@@ -19,4 +20,4 @@ Mayur Pillay - u19290498 <br/>
     <td>Mayur Pillay - u19290498</td>
     <td></td>
   </tr>
-</table>
+</table>-->
