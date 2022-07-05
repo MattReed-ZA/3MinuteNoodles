@@ -14,10 +14,10 @@ Mayur Pillay - u19290498 <br/>
   </tr>
   <tr>
     <td>Dharshan Moodley - u19072164</td>
-    <td></td>
+    <td><a>![GitHub Stats](https://github-readme-stats.vercel.app/api?username=DMoodley01&theme=radical)</a></td>
   </tr>
   <tr>
     <td>Mayur Pillay - u19290498</td>
-    <td></td>
+    <td><a>![GitHub Stats](https://github-readme-stats.vercel.app/api?username=mp-github-acc&theme=radical)</a></td>
   </tr>
 </table>-->
