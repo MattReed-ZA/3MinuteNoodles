@@ -1,5 +1,5 @@
 # IMY300GameProject
-##3 Minute Noodles
+## 3 Minute Noodles
 
 Group Members: <br/> 
 Matthew Reed - u19100133  <br/>
