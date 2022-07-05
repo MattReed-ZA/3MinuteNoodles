@@ -1,0 +1,284 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &1
+MonoBehaviour:
+  m_ObjectHideFlags: 61
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffe70aba2e7074048aca5de573b64a59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SimpleSelectedItems:
+    m_Keys:
+    - .collabignore
+    - Assets/Animations.meta
+    - Assets/Animations/Animation Controllers.meta
+    - Assets/Animations/Animation Controllers/Player AC.controller
+    - Assets/Animations/Animation Controllers/Player AC.controller.meta
+    - Assets/Animations/Animation PNGS.meta
+    - Assets/Animations/Animation PNGS/IDLE.meta
+    - Assets/Animations/Animation PNGS/IDLE/State 1.png
+    - Assets/Animations/Animation PNGS/IDLE/State 1.png.meta
+    - Assets/Animations/Animation PNGS/IDLE/State 2.png
+    - Assets/Animations/Animation PNGS/IDLE/State 2.png.meta
+    - Assets/Animations/Animation PNGS/IDLE/State 3.png
+    - Assets/Animations/Animation PNGS/IDLE/State 3.png.meta
+    - Assets/Animations/Animation PNGS/JUMP.meta
+    - Assets/Animations/Animation PNGS/JUMP/State 1.png
+    - Assets/Animations/Animation PNGS/JUMP/State 1.png.meta
+    - Assets/Animations/Animation PNGS/JUMP/State 2.png
+    - Assets/Animations/Animation PNGS/JUMP/State 2.png.meta
+    - Assets/Animations/Animation PNGS/JUMP/State 3.png
+    - Assets/Animations/Animation PNGS/JUMP/State 3.png.meta
+    - Assets/Animations/Animation PNGS/LEDGE CLIMB.meta
+    - Assets/Animations/Animation PNGS/LEDGE CLIMB/State 1(adjusted).png
+    - Assets/Animations/Animation PNGS/LEDGE CLIMB/State 1(adjusted).png.meta
+    - Assets/Animations/Animation PNGS/LEDGE CLIMB/State 2(adjusted).png
+    - Assets/Animations/Animation PNGS/LEDGE CLIMB/State 2(adjusted).png.meta
+    - Assets/Animations/Animation PNGS/LEDGE CLIMB/State 3(adjusted).png
+    - Assets/Animations/Animation PNGS/LEDGE CLIMB/State 3(adjusted).png.meta
+    - Assets/Animations/Animation PNGS/LEDGE CLIMB/State 4(adjusted).png
+    - Assets/Animations/Animation PNGS/LEDGE CLIMB/State 4(adjusted).png.meta
+    - Assets/Animations/Animation PNGS/WALK.meta
+    - Assets/Animations/Animation PNGS/WALK/NEW WALK.meta
+    - Assets/Animations/Animation PNGS/WALK/NEW WALK/State 1.png
+    - Assets/Animations/Animation PNGS/WALK/NEW WALK/State 1.png.meta
+    - Assets/Animations/Animation PNGS/WALK/NEW WALK/State 2.png
+    - Assets/Animations/Animation PNGS/WALK/NEW WALK/State 2.png.meta
+    - Assets/Animations/Animation PNGS/WALK/NEW WALK/State 3.png
+    - Assets/Animations/Animation PNGS/WALK/NEW WALK/State 3.png.meta
+    - Assets/Animations/Animation PNGS/WALK/NEW WALK/State 4.png
+    - Assets/Animations/Animation PNGS/WALK/NEW WALK/State 4.png.meta
+    - Assets/Animations/Animation PNGS/WALK/NEW WALK/State 5.png
+    - Assets/Animations/Animation PNGS/WALK/NEW WALK/State 5.png.meta
+    - Assets/Animations/Animation PNGS/WALK/NEW WALK/State 6.png
+    - Assets/Animations/Animation PNGS/WALK/NEW WALK/State 6.png.meta
+    - Assets/Animations/Animation PNGS/WALK/NEW WALK/State 7.png
+    - Assets/Animations/Animation PNGS/WALK/NEW WALK/State 7.png.meta
+    - Assets/Animations/Animation PNGS/WALK/NEW WALK/State 8.png
+    - Assets/Animations/Animation PNGS/WALK/NEW WALK/State 8.png.meta
+    - Assets/Animations/Animation PNGS/WALLSLIDE.meta
+    - Assets/Animations/Animation PNGS/WALLSLIDE/State 1 (Position adjusted).png
+    - Assets/Animations/Animation PNGS/WALLSLIDE/State 1 (Position adjusted).png.meta
+    - Assets/Animations/Animation PNGS/WALLSLIDE/State 1.png
+    - Assets/Animations/Animation PNGS/WALLSLIDE/State 1.png.meta
+    - Assets/Animations/Unity Animation.meta
+    - Assets/Animations/Unity Animation/Idle.anim
+    - Assets/Animations/Unity Animation/Idle.anim.meta
+    - Assets/Animations/Unity Animation/Jump 2.anim
+    - Assets/Animations/Unity Animation/Jump 2.anim.meta
+    - Assets/Animations/Unity Animation/Jump 3.anim
+    - Assets/Animations/Unity Animation/Jump 3.anim.meta
+    - Assets/Animations/Unity Animation/Jump.anim
+    - Assets/Animations/Unity Animation/Jump.anim.meta
+    - Assets/Animations/Unity Animation/Ledge Climb.anim
+    - Assets/Animations/Unity Animation/Ledge Climb.anim.meta
+    - Assets/Animations/Unity Animation/Walk.anim
+    - Assets/Animations/Unity Animation/Walk.anim.meta
+    - Assets/Animations/Unity Animation/WallSlide.anim
+    - Assets/Animations/Unity Animation/WallSlide.anim.meta
+    - Assets/Background Images.meta
+    - Assets/Background Images/StartMenu.png
+    - Assets/Background Images/StartMenu.png.meta
+    - Assets/Fonts.meta
+    - Assets/Fonts/IMMORTAL.ttf
+    - Assets/Fonts/IMMORTAL.ttf.meta
+    - Assets/Materials.meta
+    - Assets/Materials/FixGaps.mat
+    - Assets/Materials/FixGaps.mat.meta
+    - Assets/Materials/PlayerMaterial.physicsMaterial2D
+    - Assets/Materials/PlayerMaterial.physicsMaterial2D.meta
+    - Assets/Materials/character.mat
+    - Assets/Materials/character.mat.meta
+    - Assets/Music.meta
+    - Assets/Music/Menu Background music.mp3
+    - Assets/Music/Menu Background music.mp3.meta
+    - Assets/Palette.meta
+    - Assets/Palette/Ground.prefab
+    - Assets/Palette/Ground.prefab.meta
+    - Assets/PlayBTN.cs
+    - Assets/PlayBTN.cs.meta
+    - Assets/PlayerAIPool.cs
+    - Assets/PlayerAIPool.cs.meta
+    - Assets/PlayerAfterImage.cs
+    - Assets/PlayerAfterImage.cs.meta
+    - Assets/PlayerController.cs
+    - Assets/PlayerController.cs.meta
+    - Assets/Prefabs.meta
+    - Assets/Prefabs/AfterImage.prefab
+    - Assets/Prefabs/AfterImage.prefab.meta
+    - Assets/Resources.meta
+    - Assets/Resources/Dash.mp3
+    - Assets/Resources/Dash.mp3.meta
+    - Assets/Resources/FootStep One.mp3
+    - Assets/Resources/FootStep One.mp3.meta
+    - Assets/Resources/FootStep Two.mp3
+    - Assets/Resources/FootStep Two.mp3.meta
+    - Assets/Resources/Jump.mp3
+    - Assets/Resources/Jump.mp3.meta
+    - Assets/Scenes.meta
+    - Assets/Scenes/GameScene.unity
+    - Assets/Scenes/GameScene.unity.meta
+    - Assets/Scenes/MenuScene.unity
+    - Assets/Scenes/MenuScene.unity.meta
+    - Assets/Scripts.meta
+    - Assets/Scripts/BackgroundScroller.cs
+    - Assets/Scripts/BackgroundScroller.cs.meta
+    - Assets/Sound.meta
+    - Assets/Sound/Dash.mp3
+    - Assets/Sound/Dash.mp3.meta
+    - Assets/Sound/Running.mp3
+    - Assets/Sound/Running.mp3.meta
+    - Assets/SoundFX.cs
+    - Assets/SoundFX.cs.meta
+    - Assets/SoundManagerScript.cs
+    - Assets/SoundManagerScript.cs.meta
+    - Assets/Sprites.meta
+    - Assets/Sprites/Environment.meta
+    - Assets/Sprites/Environment/Log.png
+    - Assets/Sprites/Environment/Log.png.meta
+    - Assets/Sprites/Environment/Tile_Wall.asset
+    - Assets/Sprites/Environment/Tile_Wall.asset.meta
+    - Assets/Sprites/Environment/Tile_Wall.png
+    - Assets/Sprites/Environment/Tile_Wall.png.meta
+    - Assets/Sprites/Environment/ground_thicker.asset
+    - Assets/Sprites/Environment/ground_thicker.asset.meta
+    - Assets/Sprites/Environment/ground_thicker.png
+    - Assets/Sprites/Environment/ground_thicker.png.meta
+    - Assets/Sprites/Environment/rock.asset
+    - Assets/Sprites/Environment/rock.asset.meta
+    - Assets/Sprites/Environment/rock.png
+    - Assets/Sprites/Environment/rock.png.meta
+    - Assets/Sprites/Environment/treex1.asset
+    - Assets/Sprites/Environment/treex1.asset.meta
+    - Assets/Sprites/Environment/treex1.png
+    - Assets/Sprites/Environment/treex1.png.meta
+    - Assets/Sprites/Environment/treex2.asset
+    - Assets/Sprites/Environment/treex2.asset.meta
+    - Assets/Sprites/Environment/treex2.png
+    - Assets/Sprites/Environment/treex2.png.meta
+    - Assets/Sprites/Environment/vinelog.png
+    - Assets/Sprites/Environment/vinelog.png.meta
+    - Assets/Sprites/Planes.meta
+    - Assets/Sprites/Planes/Materials.meta
+    - Assets/Sprites/Planes/Materials/day.mat
+    - Assets/Sprites/Planes/Materials/day.mat.meta
+    - Assets/Sprites/Planes/Materials/vinelog.mat
+    - Assets/Sprites/Planes/Materials/vinelog.mat.meta
+    - Assets/Sprites/Planes/day.png
+    - Assets/Sprites/Planes/day.png.meta
+    - Assets/Sprites/Planes/night.png
+    - Assets/Sprites/Planes/night.png.meta
+    - Assets/Sprites/Raziel.meta
+    - Assets/Sprites/Raziel/Full Body Height Adjusted.png
+    - Assets/Sprites/Raziel/Full Body Height Adjusted.png.meta
+    - Assets/Sprites/Raziel/Raziel Neutral.png
+    - Assets/Sprites/Raziel/Raziel Neutral.png.meta
+    - Assets/Sprites/enemy.png
+    - Assets/Sprites/enemy.png.meta
+    - Assets/TextMesh Pro.meta
+    - Assets/TextMesh Pro/Documentation.meta
+    - Assets/TextMesh Pro/Documentation/TextMesh Pro User Guide 2016.pdf
+    - Assets/TextMesh Pro/Documentation/TextMesh Pro User Guide 2016.pdf.meta
+    - Assets/TextMesh Pro/Fonts.meta
+    - Assets/TextMesh Pro/Fonts/IMMORTAL.ttf
+    - Assets/TextMesh Pro/Fonts/IMMORTAL.ttf.meta
+    - Assets/TextMesh Pro/Fonts/LiberationSans - OFL.txt
+    - Assets/TextMesh Pro/Fonts/LiberationSans - OFL.txt.meta
+    - Assets/TextMesh Pro/Fonts/LiberationSans.ttf
+    - Assets/TextMesh Pro/Fonts/LiberationSans.ttf.meta
+    - Assets/TextMesh Pro/Resources.meta
+    - Assets/TextMesh Pro/Resources/Fonts & Materials.meta
+    - Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Drop Shadow.mat
+    - Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Drop Shadow.mat.meta
+    - Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+    - Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset.meta
+    - Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Outline.mat
+    - Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Outline.mat.meta
+    - Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF.asset
+    - Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF.asset.meta
+    - Assets/TextMesh Pro/Resources/LineBreaking Following Characters.txt
+    - Assets/TextMesh Pro/Resources/LineBreaking Following Characters.txt.meta
+    - Assets/TextMesh Pro/Resources/LineBreaking Leading Characters.txt
+    - Assets/TextMesh Pro/Resources/LineBreaking Leading Characters.txt.meta
+    - Assets/TextMesh Pro/Resources/Sprite Assets.meta
+    - Assets/TextMesh Pro/Resources/Sprite Assets/EmojiOne.asset
+    - Assets/TextMesh Pro/Resources/Sprite Assets/EmojiOne.asset.meta
+    - Assets/TextMesh Pro/Resources/Style Sheets.meta
+    - Assets/TextMesh Pro/Resources/Style Sheets/Default Style Sheet.asset
+    - Assets/TextMesh Pro/Resources/Style Sheets/Default Style Sheet.asset.meta
+    - Assets/TextMesh Pro/Resources/TMP Settings.asset
+    - Assets/TextMesh Pro/Resources/TMP Settings.asset.meta
+    - Assets/TextMesh Pro/Shaders.meta
+    - Assets/TextMesh Pro/Shaders/TMP_Bitmap-Custom-Atlas.shader
+    - Assets/TextMesh Pro/Shaders/TMP_Bitmap-Custom-Atlas.shader.meta
+    - Assets/TextMesh Pro/Shaders/TMP_Bitmap-Mobile.shader
+    - Assets/TextMesh Pro/Shaders/TMP_Bitmap-Mobile.shader.meta
+    - Assets/TextMesh Pro/Shaders/TMP_Bitmap.shader
+    - Assets/TextMesh Pro/Shaders/TMP_Bitmap.shader.meta
+    - Assets/TextMesh Pro/Shaders/TMP_SDF Overlay.shader
+    - Assets/TextMesh Pro/Shaders/TMP_SDF Overlay.shader.meta
+    - Assets/TextMesh Pro/Shaders/TMP_SDF SSD.shader
+    - Assets/TextMesh Pro/Shaders/TMP_SDF SSD.shader.meta
+    - Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile Masking.shader
+    - Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile Masking.shader.meta
+    - Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile Overlay.shader
+    - Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile Overlay.shader.meta
+    - Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile SSD.shader
+    - Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile SSD.shader.meta
+    - Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile.shader
+    - Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile.shader.meta
+    - Assets/TextMesh Pro/Shaders/TMP_SDF-Surface-Mobile.shader
+    - Assets/TextMesh Pro/Shaders/TMP_SDF-Surface-Mobile.shader.meta
+    - Assets/TextMesh Pro/Shaders/TMP_SDF-Surface.shader
+    - Assets/TextMesh Pro/Shaders/TMP_SDF-Surface.shader.meta
+    - Assets/TextMesh Pro/Shaders/TMP_SDF.shader
+    - Assets/TextMesh Pro/Shaders/TMP_SDF.shader.meta
+    - Assets/TextMesh Pro/Shaders/TMP_Sprite.shader
+    - Assets/TextMesh Pro/Shaders/TMP_Sprite.shader.meta
+    - Assets/TextMesh Pro/Shaders/TMPro.cginc
+    - Assets/TextMesh Pro/Shaders/TMPro.cginc.meta
+    - Assets/TextMesh Pro/Shaders/TMPro_Mobile.cginc
+    - Assets/TextMesh Pro/Shaders/TMPro_Mobile.cginc.meta
+    - Assets/TextMesh Pro/Shaders/TMPro_Properties.cginc
+    - Assets/TextMesh Pro/Shaders/TMPro_Properties.cginc.meta
+    - Assets/TextMesh Pro/Shaders/TMPro_Surface.cginc
+    - Assets/TextMesh Pro/Shaders/TMPro_Surface.cginc.meta
+    - Assets/TextMesh Pro/Sprites.meta
+    - Assets/TextMesh Pro/Sprites/EmojiOne Attribution.txt
+    - Assets/TextMesh Pro/Sprites/EmojiOne Attribution.txt.meta
+    - Assets/TextMesh Pro/Sprites/EmojiOne.json
+    - Assets/TextMesh Pro/Sprites/EmojiOne.json.meta
+    - Assets/TextMesh Pro/Sprites/EmojiOne.png
+    - Assets/TextMesh Pro/Sprites/EmojiOne.png.meta
+    - Packages/manifest.json
+    - Packages/packages-lock.json
+    - ProjectSettings/AudioManager.asset
+    - ProjectSettings/ClusterInputManager.asset
+    - ProjectSettings/DynamicsManager.asset
+    - ProjectSettings/EditorBuildSettings.asset
+    - ProjectSettings/EditorSettings.asset
+    - ProjectSettings/GraphicsSettings.asset
+    - ProjectSettings/InputManager.asset
+    - ProjectSettings/NavMeshAreas.asset
+    - ProjectSettings/Physics2DSettings.asset
+    - ProjectSettings/PresetManager.asset
+    - ProjectSettings/ProjectSettings.asset
+    - ProjectSettings/ProjectVersion.txt
+    - ProjectSettings/QualitySettings.asset
+    - ProjectSettings/TagManager.asset
+    - ProjectSettings/TimeManager.asset
+    - ProjectSettings/UnityConnectSettings.asset
+    - ProjectSettings/VFXManager.asset
+    - ProjectSettings/VersionControlSettings.asset
+    - 
+    m_Values: 01010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101
+  RevisionSummary: 
+  ChangesSearchValue: 
+  SelectedHistoryRevision: 
+  HistoryPageNumber: 0
+  TabIndex: 0
