@@ -102,6 +102,7 @@ public class PlayerController : MonoBehaviour
     private bool isPushing = false;
     private bool canDrag = false;
     private bool dragging = false;
+    private float dragSpeed = 5.0f;
     private Rigidbody2D dragObject = null;
     ///////////////////////////////////////
 
@@ -211,7 +212,7 @@ public class PlayerController : MonoBehaviour
 
     private void Flip()
     {
-        if(!isWallSliding && canFlip)
+        if(!isWallSliding && !dragging && canFlip)
         {
             facingDirection*=-1;
             isFacingRight=!isFacingRight;
@@ -438,7 +439,30 @@ public class PlayerController : MonoBehaviour
         }
         else if(canMove)
         {  
-            rb.velocity=new Vector2(movementSpeed*movementInputDirection, rb.velocity.y);
+            if(dragging == true && dragObject != null)
+            {
+                if((isFacingRight && rb.velocity.x>0) || (!isFacingRight && rb.velocity.x<0))
+                {
+                    //Pushing
+                    isWalking =false;
+                    isPushing = true;
+                    isPulling = false;
+                }
+                else if((isFacingRight && rb.velocity.x<0) || (!isFacingRight && rb.velocity.x>0))
+                {
+                    //Pulling
+                    isWalking =false;
+                    isPulling = true;
+                    isPushing = false;
+                }
+
+                rb.velocity = new Vector2(dragSpeed*movementInputDirection, rb.velocity.y);
+                dragObject.velocity = new Vector2(dragSpeed*movementInputDirection, rb.velocity.y);
+            }
+            else
+            {
+                rb.velocity=new Vector2(movementSpeed*movementInputDirection, rb.velocity.y);
+            }      
         }
        
         
