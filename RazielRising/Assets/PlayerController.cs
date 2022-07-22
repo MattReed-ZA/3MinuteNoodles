@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-
+    [SerializeField] private TrailRenderer tr;
+    
     private Animator anim;
     private bool isWalking;
 
@@ -82,6 +83,20 @@ public class PlayerController : MonoBehaviour
 
     ///////////////////////////////////
 
+    //FOR PARTICLE EFFECT//////////////
+    public ParticleSystem dust;
+
+    void CreateDust()
+    {
+        dust.Play();
+    }
+    ///////////////////////////////////
+
+    //FOR RESPAWNING///////////////////
+    private Vector3 respawnPoint;
+    public GameObject respawnDetector;
+    ///////////////////////////////////
+
 
     void Start()
     {
@@ -90,6 +105,8 @@ public class PlayerController : MonoBehaviour
         wallHopDirection.Normalize();
         wallJumpDirection.Normalize();
         anim=GetComponent<Animator>();
+        respawnPoint=rb.position;
+        //Debug.Log(rb.position);
     }
 
     void Update()
@@ -102,6 +119,22 @@ public class PlayerController : MonoBehaviour
         CheckDash();
         CheckJump();
         CheckLedgeClimb();
+
+        //TO MOVE RESPAWN POINT///
+        respawnDetector.transform.position = new Vector2(rb.position.x,respawnDetector.transform.position.y);
+        //////////////////////////
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.tag=="Respawn")
+        {
+            rb.position=respawnPoint;
+        }
+        else if(collision.tag=="Checkpoint")
+        {
+            respawnPoint=rb.position;
+        }
     }
 
     private void UpdateAnimations()
@@ -110,6 +143,7 @@ public class PlayerController : MonoBehaviour
         anim.SetBool("isGrounded",isGrounded);      
         anim.SetFloat("yVelocity",rb.velocity.y);
         anim.SetBool("isWallSliding",isWallSliding);
+        anim.SetBool("isDashing",isDashing);
     }
 
     private void CheckIfWallSliding()
@@ -142,7 +176,7 @@ public class PlayerController : MonoBehaviour
         }
 
 
-        if(rb.velocity.x!=0)
+        if(rb.velocity.x>=0.5 || rb.velocity.x<=-0.5)
         {
             isWalking=true;
         }
@@ -215,10 +249,13 @@ public class PlayerController : MonoBehaviour
         {
             if(Time.time >= (lastDash+dashCooldown))
             {
+                tr.emitting=true;
                 Dash();
                 SoundManagerScript.PlaySound("Dash");
             }
+            
         }
+        
 
     }
 
@@ -227,9 +264,7 @@ public class PlayerController : MonoBehaviour
         isDashing=true;
         dashTimeLeft=dashTime;
         lastDash=Time.time;
-
-        PlayerAIPool.Instance.GetFromPool();
-        lastImageXpos=transform.position.x;
+        
     }
 
     private void CheckDash()
@@ -239,21 +274,17 @@ public class PlayerController : MonoBehaviour
             
             if(dashTimeLeft>0)
             {
+                
                 canMove=false;
                 canFlip=false;
                 rb.velocity=new Vector2(dashSpeed*facingDirection,0);
                 dashTimeLeft -= Time.deltaTime;
-
-                if(Mathf.Abs(transform.position.x - lastImageXpos) > distanceBetweenImages)
-                {
-                    PlayerAIPool.Instance.GetFromPool();
-                    lastImageXpos = transform.position.x;
-                }
             }
 
             if(dashTimeLeft<=0 || isTouchingWall)
             {
                 isDashing=false;
+                tr.emitting=false;
                 canFlip=true;
                 canMove=true;
             }
@@ -265,7 +296,7 @@ public class PlayerController : MonoBehaviour
     {
         if(jumpTimer>0)
         {
-            //Wal Jump
+            //Wall Jump
             if(!isGrounded && isTouchingWall && movementInputDirection!=0 && movementInputDirection != facingDirection)
             {
                 WallJump();
@@ -303,6 +334,7 @@ public class PlayerController : MonoBehaviour
     {
         if(canNormalJump)
         {
+            CreateDust();
             rb.velocity=new Vector2(rb.velocity.x, jumpForce);
             amountOfJumpsleft--;
             jumpTimer=0;
