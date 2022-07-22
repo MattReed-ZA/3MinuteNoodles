@@ -97,6 +97,14 @@ public class PlayerController : MonoBehaviour
     public GameObject respawnDetector;
     ///////////////////////////////////
 
+    //FOR PULLING & PUSHING//////////////////
+    private bool isPulling = false;
+    private bool isPushing = false;
+    private bool canDrag = false;
+    private bool dragging = false;
+    private float dragSpeed = 5.0f;
+    private Rigidbody2D dragObject = null;
+    ///////////////////////////////////////
 
     void Start()
     {
@@ -135,6 +143,18 @@ public class PlayerController : MonoBehaviour
         {
             respawnPoint=rb.position;
         }
+        else if(collision.tag == "Draggable")
+        {
+            canDrag = true;
+        }
+    }
+
+    private void onTriggerExit2D(Collider2D collision)
+    {
+        if(collision.tag == "Draggable")
+        {
+            canDrag = false;
+        }
     }
 
     private void UpdateAnimations()
@@ -144,6 +164,8 @@ public class PlayerController : MonoBehaviour
         anim.SetFloat("yVelocity",rb.velocity.y);
         anim.SetBool("isWallSliding",isWallSliding);
         anim.SetBool("isDashing",isDashing);
+        anim.SetBool("isPulling", isPulling);
+        anim.SetBool("isPushing", isPushing);
     }
 
     private void CheckIfWallSliding()
@@ -190,7 +212,7 @@ public class PlayerController : MonoBehaviour
 
     private void Flip()
     {
-        if(!isWallSliding && canFlip)
+        if(!isWallSliding && !dragging && canFlip)
         {
             facingDirection*=-1;
             isFacingRight=!isFacingRight;
@@ -201,6 +223,28 @@ public class PlayerController : MonoBehaviour
 
     private void CheckInput()
     {
+        //Dragging Mechanic################################################################################################################################
+        if(canDrag == true && dragObject != null && Input.GetMouseButtonDown(0))
+        {
+            if(dragging == false)
+            {
+                dragging = true;
+
+                dragObject.constraints = RigidbodyConstraints2D.None;
+                dragObject.constraints = RigidbodyConstraints2D.FreezeRotation;
+            }
+            else
+            {
+                dragging = false;
+
+                dragObject.constraints = RigidbodyConstraints2D.None;
+                dragObject.constraints = RigidbodyConstraints2D.FreezePositionX;
+                dragObject.constraints = RigidbodyConstraints2D.FreezeRotation;
+            }
+        }
+        //Dragging Mechanic################################################################################################################################
+
+
         movementInputDirection=Input.GetAxisRaw("Horizontal");
         
         if(Input.GetButtonDown("Jump"))
@@ -395,7 +439,30 @@ public class PlayerController : MonoBehaviour
         }
         else if(canMove)
         {  
-            rb.velocity=new Vector2(movementSpeed*movementInputDirection, rb.velocity.y);
+            if(dragging == true && dragObject != null)
+            {
+                if((isFacingRight && rb.velocity.x>0) || (!isFacingRight && rb.velocity.x<0))
+                {
+                    //Pushing
+                    isWalking =false;
+                    isPushing = true;
+                    isPulling = false;
+                }
+                else if((isFacingRight && rb.velocity.x<0) || (!isFacingRight && rb.velocity.x>0))
+                {
+                    //Pulling
+                    isWalking =false;
+                    isPulling = true;
+                    isPushing = false;
+                }
+
+                rb.velocity = new Vector2(dragSpeed*movementInputDirection, rb.velocity.y);
+                dragObject.velocity = new Vector2(dragSpeed*movementInputDirection, rb.velocity.y);
+            }
+            else
+            {
+                rb.velocity=new Vector2(movementSpeed*movementInputDirection, rb.velocity.y);
+            }      
         }
        
         
@@ -469,7 +536,17 @@ public class PlayerController : MonoBehaviour
         Gizmos.DrawLine(wallCheck.position,new Vector3(wallCheck.position.x + wallCheckDistance,wallCheck.position.y,wallCheck.position.z));
     }
 
-    
+    public void setDragObject(Rigidbody2D obj)
+    {
+        if(obj != null)
+        {
+            dragObject = obj;
+        }
+        else
+        {
+            dragObject = null;
+        }
+    }
     
                            
 }
