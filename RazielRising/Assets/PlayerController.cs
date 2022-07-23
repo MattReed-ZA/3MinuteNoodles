@@ -198,7 +198,7 @@ public class PlayerController : MonoBehaviour
         }
 
 
-        if(rb.velocity.x>=0.5 || rb.velocity.x<=-0.5)
+        /* if(rb.velocity.x>=0.5 || rb.velocity.x<=-0.5)
         {
             isWalking=true;
         }
@@ -206,7 +206,7 @@ public class PlayerController : MonoBehaviour
         {
             isWalking=false;
 
-        }
+        } */
 
     }
 
@@ -232,14 +232,19 @@ public class PlayerController : MonoBehaviour
 
                 dragObject.constraints = RigidbodyConstraints2D.None;
                 dragObject.constraints = RigidbodyConstraints2D.FreezeRotation;
+
+                isWalking = false;
             }
-            else
+            else if(dragging == true)
             {
                 dragging = false;
 
                 dragObject.constraints = RigidbodyConstraints2D.None;
-                dragObject.constraints = RigidbodyConstraints2D.FreezePositionX;
-                dragObject.constraints = RigidbodyConstraints2D.FreezeRotation;
+                dragObject.constraints = RigidbodyConstraints2D.FreezeAll;
+
+                isWalking = true;
+                isPulling = false;
+                isPushing = false;
             }
         }
         //Dragging Mechanic################################################################################################################################
@@ -439,21 +444,20 @@ public class PlayerController : MonoBehaviour
         }
         else if(canMove)
         {  
+            //Debug.Log("In the Apply Movement Method, dragging is: " + dragging);
             if(dragging == true && dragObject != null)
             {
-                if((isFacingRight && rb.velocity.x>0) || (!isFacingRight && rb.velocity.x<0))
+                if((isFacingRight && rb.velocity.x>0.5) || (!isFacingRight && rb.velocity.x<0.5))
                 {
                     //Pushing
-                    isWalking =false;
-                    isPushing = true;
                     isPulling = false;
+                    isPushing = true;                   
                 }
-                else if((isFacingRight && rb.velocity.x<0) || (!isFacingRight && rb.velocity.x>0))
+                else if((isFacingRight && rb.velocity.x<0.5) || (!isFacingRight && rb.velocity.x>0.5))
                 {
                     //Pulling
-                    isWalking =false;
-                    isPulling = true;
                     isPushing = false;
+                    isPulling = true;
                 }
 
                 rb.velocity = new Vector2(dragSpeed*movementInputDirection, rb.velocity.y);
@@ -461,6 +465,15 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
+                if(rb.velocity.x>=0.5 || rb.velocity.x<=-0.5)
+                {
+                    isWalking=true;
+                }
+                else
+                {
+                    isWalking=false;
+                }
+
                 rb.velocity=new Vector2(movementSpeed*movementInputDirection, rb.velocity.y);
             }      
         }
