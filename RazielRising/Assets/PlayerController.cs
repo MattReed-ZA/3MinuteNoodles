@@ -97,8 +97,14 @@ public class PlayerController : MonoBehaviour
     public GameObject respawnDetector;
     ///////////////////////////////////
 
-    
-
+    //FOR PULLING & PUSHING//////////////////
+    private bool isPulling = false;
+    private bool isPushing = false;
+    private bool canDrag = false;
+    private bool dragging = false;
+    private float dragSpeed = 5.0f;
+    private Rigidbody2D dragObject = null;
+    ///////////////////////////////////////
 
     void Start()
     {
@@ -138,6 +144,18 @@ public class PlayerController : MonoBehaviour
         {
             respawnPoint=rb.position;
         }
+        else if(collision.tag == "Draggable")
+        {
+            canDrag = true;
+        }
+    }
+
+    private void onTriggerExit2D(Collider2D collision)
+    {
+        if(collision.tag == "Draggable")
+        {
+            canDrag = false;
+        }
     }
     //////////////////////////////////////////////////////////
 
@@ -148,6 +166,8 @@ public class PlayerController : MonoBehaviour
         anim.SetFloat("yVelocity",rb.velocity.y);
         anim.SetBool("isWallSliding",isWallSliding);
         anim.SetBool("isDashing",isDashing);
+        anim.SetBool("isPulling", isPulling);
+        anim.SetBool("isPushing", isPushing);
     }
 
     private void CheckIfWallSliding()
@@ -178,23 +198,11 @@ public class PlayerController : MonoBehaviour
         {
             Flip();
         }
-
-
-        if(rb.velocity.x>=0.5 || rb.velocity.x<=-0.5)
-        {
-            isWalking=true;
-        }
-        else
-        {
-            isWalking=false;
-
-        }
-
     }
 
     private void Flip()
     {
-        if(!isWallSliding && canFlip)
+        if(!isWallSliding && !dragging && canFlip)
         {
             facingDirection*=-1;
             isFacingRight=!isFacingRight;
@@ -205,6 +213,33 @@ public class PlayerController : MonoBehaviour
 
     private void CheckInput()
     {
+        //Dragging Mechanic################################################################################################################################
+        if(canDrag == true && dragObject != null && Input.GetMouseButtonDown(0))
+        {
+            if(dragging == false)
+            {
+                dragging = true;
+
+                dragObject.constraints = RigidbodyConstraints2D.None;
+                dragObject.constraints = RigidbodyConstraints2D.FreezeRotation;
+
+                isWalking = false;
+            }
+            else if(dragging == true)
+            {
+                dragging = false;
+
+                dragObject.constraints = RigidbodyConstraints2D.None;
+                dragObject.constraints = RigidbodyConstraints2D.FreezeAll;
+
+                isWalking = true;
+                isPulling = false;
+                isPushing = false;
+            }
+        }
+        //Dragging Mechanic################################################################################################################################
+
+
         movementInputDirection=Input.GetAxisRaw("Horizontal");
         
         if(Input.GetButtonDown("Jump"))
@@ -399,7 +434,38 @@ public class PlayerController : MonoBehaviour
         }
         else if(canMove)
         {  
-            rb.velocity=new Vector2(movementSpeed*movementInputDirection, rb.velocity.y);
+            //Debug.Log("In the Apply Movement Method, dragging is: " + dragging);
+            if(dragging == true && dragObject != null)
+            {
+                if((isFacingRight && rb.velocity.x>0.5) || (!isFacingRight && rb.velocity.x<0.5))
+                {
+                    //Pushing
+                    isPulling = false;
+                    isPushing = true;                   
+                }
+                else if((isFacingRight && rb.velocity.x<0.5) || (!isFacingRight && rb.velocity.x>0.5))
+                {
+                    //Pulling
+                    isPushing = false;
+                    isPulling = true;
+                }
+
+                rb.velocity = new Vector2(dragSpeed*movementInputDirection, rb.velocity.y);
+                dragObject.velocity = new Vector2(dragSpeed*movementInputDirection, rb.velocity.y);
+            }
+            else
+            {
+                if(rb.velocity.x>=0.5 || rb.velocity.x<=-0.5)
+                {
+                    isWalking=true;
+                }
+                else
+                {
+                    isWalking=false;
+                }
+
+                rb.velocity=new Vector2(movementSpeed*movementInputDirection, rb.velocity.y);
+            }      
         }
        
         
@@ -415,40 +481,12 @@ public class PlayerController : MonoBehaviour
 
     private void CheckLedgeClimb()
     {
-        // if(ledgeDetected && !canClimbLedge)
-        // {
-        //     canClimbLedge=true;
-        
-        //     if(isFacingRight)
-        //     {
-        //         ledgePos1=new Vector2(Mathf.Floor(ledgePosBottom.x + wallCheckDistance)-ledgeClimbXOff1,Mathf.Floor(ledgePosBottom.y)+ledgeClimbYOff1);
-        //         ledgePos2=new Vector2(Mathf.Floor(ledgePosBottom.x + wallCheckDistance)+ledgeClimbXOff2,Mathf.Floor(ledgePosBottom.y)+ledgeClimbYOff2);
-        //     }
-        //     else
-        //     {
-        //         ledgePos1=new Vector2(Mathf.Ceil(ledgePosBottom.x - wallCheckDistance)+ledgeClimbXOff1,Mathf.Floor(ledgePosBottom.y)+ledgeClimbYOff1);
-        //         ledgePos2=new Vector2(Mathf.Ceil(ledgePosBottom.x - wallCheckDistance)-ledgeClimbXOff2,Mathf.Floor(ledgePosBottom.y)+ledgeClimbYOff2);
-        //     }
-
-        //     canMove=false;
-        //     canFlip=false;
-        //     anim.SetBool("canClimbLedge",canClimbLedge);
-        // }
-        // if(canClimbLedge)
-        // {
-        //     transform.position=ledgePos1;
-        // }
-        
+       
     }
 
     public void FinishLedgeClimb()
     {
-        // canClimbLedge=false;
-        // transform.position=ledgePos2;
-        // canMove=true;
-        // canFlip=true;
-        // ledgeDetected=false;
-        // anim.SetBool("canClimbLedge",canClimbLedge);
+
     }
 
     private void CheckSurroundings()
@@ -456,14 +494,7 @@ public class PlayerController : MonoBehaviour
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
 
         isTouchingWall=Physics2D.Raycast(wallCheck.position,transform.right,wallCheckDistance,whatIsGround);
-
-        // isTouchingLedge=Physics2D.Raycast(ledgeCheck.position,transform.right,wallCheckDistance,whatIsGround);
-
-        // if(isTouchingWall && !isTouchingLedge && !ledgeDetected)
-        // {
-        //     ledgeDetected=true;
-        //     ledgePosBottom=wallCheck.position;
-        // }
+        
     }
 
     private void OnDrawGizmos()
@@ -473,7 +504,17 @@ public class PlayerController : MonoBehaviour
         Gizmos.DrawLine(wallCheck.position,new Vector3(wallCheck.position.x + wallCheckDistance,wallCheck.position.y,wallCheck.position.z));
     }
 
-    
+    public void setDragObject(Rigidbody2D obj)
+    {
+        if(obj != null)
+        {
+            dragObject = obj;
+        }
+        else
+        {
+            dragObject = null;
+        }
+    }
     
                            
 }
