@@ -97,6 +97,8 @@ public class PlayerController : MonoBehaviour
     public GameObject respawnDetector;
     ///////////////////////////////////
 
+    
+
 
     void Start()
     {
@@ -125,6 +127,7 @@ public class PlayerController : MonoBehaviour
         //////////////////////////
     }
 
+    //FOR CHECKPOINTS/////////////////////////////////////////
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.tag=="Respawn")
@@ -136,6 +139,7 @@ public class PlayerController : MonoBehaviour
             respawnPoint=rb.position;
         }
     }
+    //////////////////////////////////////////////////////////
 
     private void UpdateAnimations()
     {
@@ -205,7 +209,7 @@ public class PlayerController : MonoBehaviour
         
         if(Input.GetButtonDown("Jump"))
         {
-            if(isGrounded || (amountOfJumpsleft>0 && isTouchingWall))
+            if(isGrounded || (amountOfJumpsleft>0 && !isTouchingWall))
             {
                 SoundManagerScript.PlaySound("Jump");
                 NormalJump();
