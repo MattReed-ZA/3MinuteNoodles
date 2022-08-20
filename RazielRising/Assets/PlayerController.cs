@@ -114,7 +114,6 @@ public class PlayerController : MonoBehaviour
         wallJumpDirection.Normalize();
         anim=GetComponent<Animator>();
         respawnPoint=rb.position;
-        //Debug.Log(rb.position);
     }
 
     void Update()
@@ -127,10 +126,17 @@ public class PlayerController : MonoBehaviour
         CheckDash();
         CheckJump();
         CheckLedgeClimb();
-
+        CheckDashJump();
         //TO MOVE RESPAWN POINT///
         respawnDetector.transform.position = new Vector2(rb.position.x,respawnDetector.transform.position.y);
         //////////////////////////
+
+        if(dragging)
+        {
+            canNormalJump=false;
+            canWallJump=false;
+        }
+        
     }
 
     //FOR CHECKPOINTS/////////////////////////////////////////
@@ -139,6 +145,9 @@ public class PlayerController : MonoBehaviour
         if(collision.tag=="Respawn")
         {
             rb.position=respawnPoint;
+            dragging=false;
+            isPushing=false;
+            isPulling=false;
         }
         else if(collision.tag=="Checkpoint")
         {
@@ -214,7 +223,7 @@ public class PlayerController : MonoBehaviour
     private void CheckInput()
     {
         //Dragging Mechanic################################################################################################################################
-        if(canDrag == true && dragObject != null && Input.GetMouseButtonDown(0))
+        if(canDrag == true && dragObject != null && Input.GetButtonDown("Drag"))
         {
             if(dragging == false)
             {
@@ -222,6 +231,10 @@ public class PlayerController : MonoBehaviour
 
                 dragObject.constraints = RigidbodyConstraints2D.None;
                 dragObject.constraints = RigidbodyConstraints2D.FreezeRotation;
+
+                //dragObject.constraints = RigidbodyConstraints2D.FreezePositionY;
+                //rb.constraints=RigidbodyConstraints2D.FreezePositionY;
+                rb.constraints=RigidbodyConstraints2D.FreezeRotation;
 
                 isWalking = false;
             }
@@ -246,8 +259,9 @@ public class PlayerController : MonoBehaviour
         {
             if(isGrounded || (amountOfJumpsleft>0 && !isTouchingWall))
             {
-                SoundManagerScript.PlaySound("Jump");
                 NormalJump();
+                StartDJTimer=true;
+                //Debug.Log("JUMP");
             }
             else
             {
@@ -291,11 +305,10 @@ public class PlayerController : MonoBehaviour
                 tr.emitting=true;
                 Dash();
                 SoundManagerScript.PlaySound("Dash");
+                //Debug.Log("DASH");
             }
             
         }
-        
-
     }
 
     private void Dash()
@@ -303,17 +316,14 @@ public class PlayerController : MonoBehaviour
         isDashing=true;
         dashTimeLeft=dashTime;
         lastDash=Time.time;
-        
     }
 
     private void CheckDash()
     {
         if(isDashing)
-        {
-            
+        {  
             if(dashTimeLeft>0)
-            {
-                
+            {  
                 canMove=false;
                 canFlip=false;
                 rb.velocity=new Vector2(dashSpeed*facingDirection,0);
@@ -339,6 +349,7 @@ public class PlayerController : MonoBehaviour
             if(!isGrounded && isTouchingWall && movementInputDirection!=0 && movementInputDirection != facingDirection)
             {
                 WallJump();
+                //Debug.Log("WALL JUMP");
             }
             else if(isGrounded || amountOfJumpsleft!=0)
             {
@@ -371,9 +382,10 @@ public class PlayerController : MonoBehaviour
 
     private void NormalJump()
     {
-        if(canNormalJump)
+        if(canNormalJump && (!isPulling||!isPushing))
         {
             CreateDust();
+            SoundManagerScript.PlaySound("Jump");
             rb.velocity=new Vector2(rb.velocity.x, jumpForce);
             amountOfJumpsleft--;
             jumpTimer=0;
@@ -388,7 +400,7 @@ public class PlayerController : MonoBehaviour
         {
             rb.velocity=new Vector2(rb.velocity.x,0.0f);
             isWallSliding=false;
-            amountOfJumpsleft=amountOfJumps;
+            amountOfJumpsleft=1;//FIXES INFINITE WALL JUMP EXPLOIT
             amountOfJumpsleft--;
             Vector2 forceToAdd=new Vector2(wallJumpForce*wallJumpDirection.x*movementInputDirection,wallJumpForce*wallJumpDirection.y);
             rb.AddForce(forceToAdd,ForceMode2D.Impulse);
@@ -515,6 +527,39 @@ public class PlayerController : MonoBehaviour
             dragObject = null;
         }
     }
+
+
+    //NEW STUFF AFTER D5///////////////////////////
+    public float DashJumpTimer=1.5f;
+    public bool StartDJTimer=false;
+    public void CheckDashJump()
+    {
+        
+        if(StartDJTimer)
+        {
+            DashJumpTimer-=Time.deltaTime;
+            if(DashJumpTimer <= 0.0f)
+            {
+                StartDJTimer=false;
+                DashJumpTimer=1.5f;
+                jumpForce=16.0f;
+            }
+            else
+            {
+                if(Input.GetButtonDown("Dash"))
+                {
+                    jumpForce=25.0f;
+                }
+                else
+                {
+                
+                }
+            }
+            
+        }
+        
+    }
+    ///////////////////////////////////////////////
     
                            
 }

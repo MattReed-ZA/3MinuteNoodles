@@ -53,13 +53,19 @@
     <UnityVersion>2020.3.27f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\MousePointer.cs" />
     <Compile Include="Assets\PlayerAfterImage.cs" />
+    <Compile Include="Assets\Scripts\WaypointFollower.cs" />
+    <Compile Include="Assets\LevelControl.cs" />
     <Compile Include="Assets\PlayBTN.cs" />
     <Compile Include="Assets\Scripts\BackgroundScroller.cs" />
+    <Compile Include="Assets\Scripts\StickyPlatforms.cs" />
     <Compile Include="Assets\PlayerAIPool.cs" />
+    <Compile Include="Assets\DraggablesController.cs" />
     <Compile Include="Assets\SoundManagerScript.cs" />
     <Compile Include="Assets\SoundFX.cs" />
     <Compile Include="Assets\PlayerController.cs" />
+    <Compile Include="Assets\Scripts\Rotation.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
