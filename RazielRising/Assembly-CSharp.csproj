@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{4590FBA3-CE50-5E2E-838A-075355D5B2E4}</ProjectGuid>
+    <ProjectGuid>{9B8E6505-42DC-5F88-B641-383E8D4BA92F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -53,11 +53,19 @@
     <UnityVersion>2020.3.27f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\MousePointer.cs" />
+    <Compile Include="Assets\PlayerAfterImage.cs" />
+    <Compile Include="Assets\Scripts\WaypointFollower.cs" />
+    <Compile Include="Assets\LevelControl.cs" />
     <Compile Include="Assets\PlayBTN.cs" />
     <Compile Include="Assets\Scripts\BackgroundScroller.cs" />
+    <Compile Include="Assets\Scripts\StickyPlatforms.cs" />
+    <Compile Include="Assets\PlayerAIPool.cs" />
+    <Compile Include="Assets\DraggablesController.cs" />
     <Compile Include="Assets\SoundManagerScript.cs" />
     <Compile Include="Assets\SoundFX.cs" />
     <Compile Include="Assets\PlayerController.cs" />
+    <Compile Include="Assets\Scripts\Rotation.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
