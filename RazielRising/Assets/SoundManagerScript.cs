@@ -6,12 +6,14 @@ public class SoundManagerScript : MonoBehaviour
 {
     public static AudioClip PlayerJump;
     public static AudioClip PlayerDash;
+    public static AudioClip PlayerBounce;
     static AudioSource audiosrc;
     
     void Start()
     {
         PlayerJump=Resources.Load<AudioClip>("JumpV2");
         PlayerDash=Resources.Load<AudioClip>("Dash");
+        PlayerBounce=Resources.Load<AudioClip>("Lilly Pad Bounce");
 
         audiosrc=GetComponent<AudioSource>();
     }
@@ -30,6 +32,9 @@ public class SoundManagerScript : MonoBehaviour
                 break;
             case "Dash":
                 audiosrc.PlayOneShot(PlayerDash);
+                break;
+            case "Bounce":
+                audiosrc.PlayOneShot(PlayerBounce);
                 break;
         }
     }

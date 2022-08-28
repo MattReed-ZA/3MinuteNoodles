@@ -106,6 +106,24 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D dragObject = null;
     ///////////////////////////////////////
 
+    //FOR BASHING///////////////////////////
+    [SerializeField] private float Radius;
+    [SerializeField] GameObject BashAbleObj;
+    private bool NearToBashAbleObj;
+    private bool isChoosingDir;
+    private bool isBashing;
+    [SerializeField] private float BashPower;
+    [SerializeField] private float BashTime;
+    [SerializeField] private GameObject UpArrow;
+    [SerializeField] private GameObject DownArrow;
+    [SerializeField] private GameObject ForwardArrow;
+    [SerializeField] private GameObject BackwardArrow;
+    [SerializeField] private GameObject EArrow;
+    [SerializeField] private GameObject QArrow;
+    Vector3 BashDir;
+    private float BashTimeReset;
+    ////////////////////////////////////////
+
     void Start()
     {
         rb=GetComponent<Rigidbody2D>();
@@ -114,6 +132,7 @@ public class PlayerController : MonoBehaviour
         wallJumpDirection.Normalize();
         anim=GetComponent<Animator>();
         respawnPoint=rb.position;
+        BashTimeReset=BashTime;
     }
 
     void Update()
@@ -127,6 +146,8 @@ public class PlayerController : MonoBehaviour
         CheckJump();
         CheckLedgeClimb();
         CheckDashJump();
+        CheckBash();
+        Bash();
         //TO MOVE RESPAWN POINT///
         respawnDetector.transform.position = new Vector2(rb.position.x,respawnDetector.transform.position.y);
         //////////////////////////
@@ -193,8 +214,12 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        ApplyMovement();
-        CheckSurroundings();
+        if(isBashing==false)
+        {
+            ApplyMovement();
+            CheckSurroundings();
+        }
+
     }
 
     private void CheckMovementDirection()
@@ -305,7 +330,6 @@ public class PlayerController : MonoBehaviour
                 tr.emitting=true;
                 Dash();
                 SoundManagerScript.PlaySound("Dash");
-                //Debug.Log("DASH");
             }
             
         }
@@ -399,6 +423,7 @@ public class PlayerController : MonoBehaviour
         if(canWallJump)
         {
             rb.velocity=new Vector2(rb.velocity.x,0.0f);
+            SoundManagerScript.PlaySound("Jump");
             isWallSliding=false;
             amountOfJumpsleft=1;//FIXES INFINITE WALL JUMP EXPLOIT
             amountOfJumpsleft--;
@@ -514,6 +539,8 @@ public class PlayerController : MonoBehaviour
         Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
 
         Gizmos.DrawLine(wallCheck.position,new Vector3(wallCheck.position.x + wallCheckDistance,wallCheck.position.y,wallCheck.position.z));
+
+        Gizmos.DrawWireSphere(transform.position,Radius);
     }
 
     public void setDragObject(Rigidbody2D obj)
@@ -558,6 +585,184 @@ public class PlayerController : MonoBehaviour
             
         }
         
+    }
+
+    public bool inFunction;
+    public string Bashdirection;
+
+    public void CheckBash()
+    {
+        if(inFunction)
+        {
+           if(Input.GetKeyDown(KeyCode.D))
+           {
+                ForwardArrow.transform.position = BashAbleObj.transform.transform.position;
+  
+                ForwardArrow.SetActive(true);
+                UpArrow.SetActive(false);
+                BackwardArrow.SetActive(false);
+                DownArrow.SetActive(false);
+                EArrow.SetActive(false);
+                QArrow.SetActive(false);
+
+                Bashdirection="Forward";
+
+           }
+           if(Input.GetKey(KeyCode.E))
+           {
+                EArrow.transform.position = BashAbleObj.transform.transform.position;
+  
+                EArrow.SetActive(true);
+                ForwardArrow.SetActive(false);
+                UpArrow.SetActive(false);
+                BackwardArrow.SetActive(false);
+                DownArrow.SetActive(false);
+                QArrow.SetActive(false);
+
+                Bashdirection="E";  
+
+           }
+           if(Input.GetKey(KeyCode.Q))
+           {
+                QArrow.transform.position = BashAbleObj.transform.transform.position;
+  
+                QArrow.SetActive(true);
+                EArrow.SetActive(false);
+                ForwardArrow.SetActive(false);
+                UpArrow.SetActive(false);
+                BackwardArrow.SetActive(false);
+                DownArrow.SetActive(false);
+
+                Bashdirection="Q"; 
+
+           }
+           if(Input.GetKeyDown(KeyCode.A))
+           {
+                BackwardArrow.transform.position = BashAbleObj.transform.transform.position;
+
+                EArrow.SetActive(false);
+                ForwardArrow.SetActive(false);
+                UpArrow.SetActive(false);
+                BackwardArrow.SetActive(true);
+                DownArrow.SetActive(false);
+                QArrow.SetActive(false);
+
+                Bashdirection="Backward";
+           }
+           if(Input.GetKeyDown(KeyCode.S))
+           {
+                DownArrow.transform.position = BashAbleObj.transform.transform.position;
+                
+                EArrow.SetActive(false);
+                ForwardArrow.SetActive(false);
+                UpArrow.SetActive(false);
+                BackwardArrow.SetActive(false);
+                DownArrow.SetActive(true);
+                QArrow.SetActive(false);
+
+                Bashdirection="Down";
+           }
+           if(Input.GetKeyDown(KeyCode.W))
+           {
+                UpArrow.transform.position = BashAbleObj.transform.transform.position;
+
+                ForwardArrow.SetActive(false);
+                UpArrow.SetActive(true);
+                BackwardArrow.SetActive(false);
+                DownArrow.SetActive(false);
+                EArrow.SetActive(false);
+                QArrow.SetActive(false);
+
+                Bashdirection="Up";
+           }
+        }
+        
+    }
+
+    public void Bash()
+    {
+        RaycastHit2D[] Rays = Physics2D.CircleCastAll(transform.position, Radius, Vector3.forward);
+        foreach (RaycastHit2D ray in Rays)
+        {
+            NearToBashAbleObj=false;
+            if(ray.collider.tag == "Bashable")
+            {
+                NearToBashAbleObj=true;
+                BashAbleObj = ray.collider.transform.gameObject;
+                break;
+            }
+        }
+        if(NearToBashAbleObj)
+        {
+            if(Input.GetKeyDown(KeyCode.Mouse1))
+            {
+                Time.timeScale=0f;
+                isChoosingDir=true;
+                inFunction=true;
+            }
+            else if(isChoosingDir && Input.GetKeyUp(KeyCode.Mouse1))
+            {
+                inFunction=false;
+                Time.timeScale = 1f;
+                isChoosingDir=false;
+                isBashing=true;
+            }
+        }
+
+        if(isBashing)
+        {
+            ForwardArrow.SetActive(false);
+            UpArrow.SetActive(false);
+            BackwardArrow.SetActive(false);
+            DownArrow.SetActive(false);
+            EArrow.SetActive(false);
+            QArrow.SetActive(false);
+
+            //Debug.Log(Bashdirection);
+            if(BashTime > 0)
+            {
+                BashTime -= Time.deltaTime;
+                if(Bashdirection=="Up")
+                {
+                    rb.velocity = new Vector2(0,BashPower);
+                }
+                else if(Bashdirection=="Down")
+                {
+                    rb.velocity = new Vector2(0,-BashPower);
+                }
+                else if(Bashdirection=="Forward")
+                {
+                    rb.velocity = new Vector2(BashPower,0);
+                }
+                else if(Bashdirection=="Backward")
+                {
+                    rb.velocity = new Vector2(-BashPower,0);
+                }
+                else if(Bashdirection=="E")
+                {
+                    if(!isFacingRight)
+                    {
+                        Flip();
+                    }
+                    rb.velocity = new Vector2(BashPower-(BashPower/4),BashPower-(BashPower/4));
+                }
+                else if(Bashdirection=="Q")
+                {
+                    if(isFacingRight)
+                    {
+                        Flip();
+                    }
+                    rb.velocity = new Vector2(-BashPower-(BashPower/4),BashPower-(BashPower/4));
+                }
+                amountOfJumpsleft=2;
+            }
+            else
+            {
+                isBashing=false;
+                BashTime=BashTimeReset;
+                rb.velocity=new Vector2(rb.velocity.x,0);
+            }
+        }
     }
     ///////////////////////////////////////////////
     

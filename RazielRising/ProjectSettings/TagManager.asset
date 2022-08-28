@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Checkpoint
   - Draggable
+  - Bashable
   layers:
   - Default
   - TransparentFX
