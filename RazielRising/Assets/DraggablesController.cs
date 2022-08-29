@@ -26,11 +26,11 @@ public class DraggablesController : MonoBehaviour
         }
     }
 
-    /* void OnTriggerExit2D(Collider2D other)
+    void OnTriggerExit2D(Collider2D other)
     {
         if(other.tag == "Player" && player != null)
         {
             player.setDragObject(null);
         }
-    } */
+    } 
 }
